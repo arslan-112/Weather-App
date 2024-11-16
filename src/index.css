@@ -277,17 +277,114 @@ body {
 	}
 }
 
+#search-history-container {
+	margin-top: 20px;
+	font-family: "sinkin_sans";
+}
+
+#search-history {
+	list-style-type: none;
+	padding: 0;
+}
+
+.search-item {
+	cursor: pointer;
+	color: rgb(219, 219, 223);
+}
+
+.search-item:hover {
+	color: rgb(255, 255, 255);
+}
+
+#clear-history-btn {
+	margin-top: 10px;
+	padding: 5px 10px;
+	background-color: rgb(72, 107, 153);
+	color: white;
+	border: none;
+	cursor: pointer;
+	border-radius: 10px;
+	font-family: "sinkin_sans";
+}
+
+#clear-history-btn:hover {
+	background-color: darkred;
+}
+
+.temperature-toggle {
+	margin: 1rem;
+	padding: 1rem;
+}
+
+#temp-toggle-btn {
+	font-family: "source_sans";
+	padding: 5px 10px;
+	border-radius: 5px;
+	border: none;
+	background-color: #231a4f;
+	color: white;
+	cursor: pointer;
+	font-weight: 700;
+}
+
 @media (max-width: 768px) {
 	.container {
-		display: block;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.header-bar {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		text-align: center;
+		margin: 0;
+	}
+	#search-field {
+		display: flex;
+		flex-direction: column;
+		margin-top: 5px;
+	}
+	.search-btn {
+		margin: 3px;
+	}
+	.temperature-toggle {
+		margin: 2px;
+		padding: 0;
 	}
 
 	.today-main {
-		display: block;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 100%;
 	}
 
-	.seven-days-container,
+	.seven-days-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 100%;
+		margin-top: 20px;
+	}
+
 	.today-hours-container {
-		display: block;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		margin-top: 20px;
+	}
+	.today-cards-section {
+		justify-content: center;
+	}
+
+	/* Adjust card layouts */
+	.seven-cards,
+	.today-hours-cards {
+		width: 90%; /* Make cards full-width with some padding */
+		margin-bottom: 10px;
 	}
 }

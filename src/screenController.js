@@ -54,9 +54,6 @@ function todaysHourlySection(hours) {
 		let image = document.createElement("img");
 		image.src = determineIcon(relevantHours[index].conditions);
 		hoursIconDiv.appendChild(image);
-
-		console.log("Iteration " + index);
-		console.log(hoursTimeDiv);
 	});
 }
 
@@ -97,12 +94,64 @@ function sevenDaysSection(days) {
 }
 
 function determineIcon(conditions) {
-	console.log(conditions);
 	if (conditions === "Clear") return sun;
 	else if (conditions === "Rain") return rain;
 	else if (conditions === "Partially cloudy") return partlycloudy;
 	else if (conditions === "Cloudy") return cloudy;
 	return sun; // Default to sunny if condition is unknown
 }
+
+let isCelsius = true;
+
+const tempToggleBtn = document.querySelector("#temp-toggle-btn");
+
+function fahrenheitToCelsius(temp) {
+	return Math.round(((temp - 32) * 5) / 9);
+}
+
+function celsiusToFahrenheit(temp) {
+	return Math.round((temp * 9) / 5 + 32);
+}
+
+// Update temperatures across the app
+function updateTemperatures() {
+	const tempDiv = document.querySelector(".temperature");
+	const feelsLikeDiv = document.querySelector(".feels-like");
+	const hourlyCards = document.querySelectorAll(".today-hours-temp");
+	const sevenDayCards = document.querySelectorAll(".seven-temp");
+
+	const currentTemp = parseInt(tempDiv.textContent);
+	const feelsLikeTemp = parseInt(feelsLikeDiv.textContent.split(": ")[1]);
+	if (isNaN(currentTemp) || isNaN(feelsLikeTemp)) return;
+
+	tempDiv.textContent = isCelsius
+		? fahrenheitToCelsius(currentTemp) + "°C"
+		: celsiusToFahrenheit(currentTemp) + "°F";
+
+	feelsLikeDiv.textContent = isCelsius
+		? "Feels like: " + fahrenheitToCelsius(feelsLikeTemp) + "°C"
+		: "Feels like: " + celsiusToFahrenheit(feelsLikeTemp) + "°F";
+
+	hourlyCards.forEach((card) => {
+		const hourlyTemp = parseInt(card.textContent);
+		card.textContent = isCelsius
+			? fahrenheitToCelsius(hourlyTemp) + "°C"
+			: celsiusToFahrenheit(hourlyTemp) + "°F";
+	});
+
+	sevenDayCards.forEach((card) => {
+		const dailyTemp = parseInt(card.textContent);
+		card.textContent = isCelsius
+			? fahrenheitToCelsius(dailyTemp) + "°C"
+			: celsiusToFahrenheit(dailyTemp) + "°F";
+	});
+}
+
+// Event listener for toggle button
+tempToggleBtn.addEventListener("click", () => {
+	isCelsius = !isCelsius; // Toggle the unit
+	tempToggleBtn.textContent = isCelsius ? "Switch to °F" : "Switch to °C";
+	updateTemperatures(); // Update the UI
+});
 
 export { todaysHourlySection, setTodaySection, sevenDaysSection };

@@ -12,12 +12,19 @@ export default class {
 
 	async fetchData() {
 		try {
-			let response = await fetch(this.url, { mode: "cors" });
-			let responseJson = await response.json();
-			this.response = await responseJson;
+			const response = await fetch(this.url, { mode: "cors" });
+
+			// Handle non-200 responses
+			if (!response.ok) {
+				throw new Error(`Error ${response.status}: ${response.statusText}`);
+			}
+
+			const responseJson = await response.json();
+			this.response = responseJson;
 		} catch (error) {
-			console.error(error);
-			return "error";
+			console.error("Error fetching weather data:", error);
+			this.response = null; // Reset response on error
+			throw error; // Re-throw the error to be handled by the caller
 		}
 	}
 
