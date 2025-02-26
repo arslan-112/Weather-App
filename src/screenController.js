@@ -95,9 +95,9 @@ function sevenDaysSection(days) {
 
 function determineIcon(conditions) {
 	if (conditions === "Clear") return sun;
-	else if (conditions === "Rain") return rain;
+	else if (conditions === "Rain" || conditions === "Rain, Partially cloudy" || conditions === "Rain, Overcast" ) return rain;
 	else if (conditions === "Partially cloudy") return partlycloudy;
-	else if (conditions === "Cloudy") return cloudy;
+	else if (conditions === "Cloudy" || conditions === "Overcast") return cloudy;
 	return sun; // Default to sunny if condition is unknown
 }
 
